@@ -69,6 +69,7 @@
         border-bottom: 1px solid rgb(230, 230, 230);
         width: 100%;
         height: 170px;
+        margin-bottom : 50px;
     }
     .header_cont{
         position: relative;
@@ -118,31 +119,43 @@
         margin: 0 auto;
     }
     .contents_first ul{
-        position: absolute;
         width: 800px;
-        height: 740px;
-        margin : 80px 140px 0 140px;
-    }
-    .ftitle{
-        height: 40px;
-        font-size: 33px;
-        font-weight: 700;
+        height: 280px;
+        margin : 50px 140px 0 140px;
+        border-bottom: 2px solid rgb(230, 230, 230);
     }
     .fimage{
-        width: 800px;
-        height: 480px;
+        width: 350px;
+        height: 230px;
+        float: left;
+        padding-right: 30px;
+    }
+    .fimage > img{
+    	width : 350px; 
+    	height: 230px;
+    }
+    .ftitle{
+        width: 410px;
+        height: 40px;
+        font-size: 30px;
+        font-weight: 700;
+        float: right;
     }
     .fwriteInfo{
-        height: 60px;
+        width: 410px;
+        height: 40px;
+        float: right;
     }
     .fwriteInfo div{
         height: 30px;
         float: left;
-        margin: 10px 10px 20px 0;
+        margin: 5px 0;
     }
     .fcontent{
+        width: 410px;
         height: 80px;
-        padding: 20px 0;
+        float: right;
+        padding: 13px 0;
     }
     .freadmore{
         width: 90px;
@@ -154,53 +167,38 @@
     .freadmore a{
         color: white;
     }
-    /* 서브컨텐츠 */
-    .contents_second{
+     .pagenation{
         position: relative;
         width: 1080px;
-        top : 820px;
-        height: 557px;
         margin: 0 auto;
     }
-    .content{
-        position: absolute;
-        width: 820px;
-        height: 477px;
-        margin : 80px 140px 30px 140px;
+    .pagenation table{
+        width: 800px;
+        height: 120px;
+        margin: 0 auto;
     }
-    .content ul{
-        width: 380px;
-        height: 477px;
-        padding-right: 30px;
-        float: left;
+    .writeBtn{
+    	width : 100%;
+    	height : 60px;
     }
-    .stitle{
-        padding-top: 20px;
-        font-size: 20px;
-        font-weight: 700;
-        height: 20px;
-    }
-    .swriteInfo{
-        height: 60px;
-    }
-    .swriteInfo div{
-        height: 30px;
-        float: left;
-        margin: 10px 10px 20px 0;
-    }
-    .scontent{
-        height: 80px;
-        padding: 20px 0;
-    }
-    .sreadmore{
-        width: 90px;
+    .writeBtn button{
+		width: 90px;
         height: 40px;
-        border: 1px solid #333333;
+        border: 1px solid rgb(230, 230, 230);
         border-radius: 10px;
-        background-color: #333333;
+        background-color: rgb(230, 230, 230);
+        margin-top : 10px;
+        float : right;
     }
-    .sreadmore a{
-        color: white;
+    .writeBtn button a{
+	    color: #111111;
+    }
+    .paging{
+    	width : 100%;
+    	height : 60px;
+    	text-align: center;
+        line-height: 60px;
+        font-size : 18px;
     }
     </style>
     
@@ -218,10 +216,10 @@
 	<div class="header">
         <div class="header_cont">
         <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776</span>  
-        <div class="logo_wrap">
-        	<a href="bList.do"> 
+        <div class="logo_wrap"> 
+        <a href="bList.do"> 
             <img src ="${pageContext.request.contextPath}/resources/images/blog_logo.png" style="height: 40px;">
-            </a>
+        </a>
         </div> 
         <div class="search_wrap">	
 		<!-- 검색 form -->
@@ -234,6 +232,13 @@
         </div>
     </div>
 	<div class="contents_first">
+		<!-- <tr>
+			<td align="right" colspan="5"><input type="button" value="전체목록"
+				onclick="window.location='bList.do'"> <input type="button"
+				value="글쓰기" onclick="window.location='writeForm.do'"> </td>
+		</tr> -->
+		
+        
 		 <!-- 글이 없을 경우 -->
 		<c:if test="${listCount eq 0}">
 			<tr>
@@ -243,9 +248,11 @@
 			</tr>
 		</c:if>
 		<c:if test="${listCount ne 0}">
-			<c:forEach var="vo" items="${list}" varStatus="status" begin="0" end="0">
+			<c:forEach var="vo" items="${list}" varStatus="status">
 				<ul>
-					<%-- <td align="center">${status.count}</td> --%>
+					<li class ="fimage">
+                		<img src="${pageContext.request.contextPath}/resources/images/dog.jpg" style="width : 350px; height: 230px;">
+            		</li>
 					<li class="ftitle">
 					<a href="bDetail.do?board_num=${vo.board_num}&page=${currentPage}">${vo.board_title} </a>
 					</li>
@@ -254,9 +261,7 @@
 						<div>${vo.regDate}</div>
 						<div>${vo.read_count}</div>
 					</li>
-					<li class ="fimage">
-                		<img src="${pageContext.request.contextPath}/resources/images/dog.jpg" style="width: 800px; height: 480px;">
-            		</li>
+					
             		<li>
                 		<div class="fcontent">${vo.board_content}</div>
             		</li>
@@ -269,46 +274,52 @@
 			</c:forEach>
 		</c:if>
 	</div>
-	<div class="contents_second">
-		<!-- 글이 없을 경우 -->
-		<c:if test="${listCount eq 0}">
-			<tr>
-				<td colspan="6" align="center"><br>
-				<br> 게시판에 저장된 글이 없습니다.<br>
-				<br></td>
-			</tr>
-		</c:if>
-		
-		<div class="content">
-			<c:if test="${listCount ne 0}">
-			<c:forEach var="vo" items="${list}" varStatus="status" begin="1" end="4">
- 				<ul>
-					<%-- <td align="center">${status.count}</td> --%>
-					<li class ="simage">
-                		<img src="${pageContext.request.contextPath}/resources/images/dog.jpg" style="width: 380px; height: 210px;">
-            		</li>
-					<li class="stitle">
-					<a href="bDetail.do?board_num=${vo.board_num}&page=${currentPage}">${vo.board_title} </a>
-					</li>
-					<li class="swriteInfo">
-						<div>${vo.board_writer}</div>
-						<div>${vo.regDate}</div>
-						<div>${vo.read_count}</div>
-					</li>
-					
-            		<li>
-                		<div class="scontent">${vo.board_content}</div>
-            		</li>
-            		<%-- <li>
-                		<button class="sreadmore">
-                		<a href="bDetail.do?board_num=${vo.board_num}&page=${currentPage}">더보기</a>
-                		</button>
-            		</li> --%>
-				</ul>
-			</c:forEach>
+	<div class="pagenation">
+    <table>
+   		<tr class="writeBtn">
+			<td>
+			<button><a href="writeForm.do">글쓰기</a></button>
+			</td>
+		</tr>
+		<!-- 앞 페이지 번호 처리 -->
+		<tr  class="paging">
+			<td colspan="5">
+			<c:if test="${currentPage <= 1}">
+			&lt; &nbsp; &nbsp; &nbsp;
 			</c:if>
-		 </div>
-	</div>
+			 	<c:if test="${currentPage > 1}">
+					<c:url var="blistST" value="bOracleList.do">
+						<c:param name="page" value="${currentPage-1}" />
+					</c:url>
+					<a href="${blistST}">&lt; &nbsp; &nbsp; &nbsp; </a>
+				</c:if> 
+				<!-- 끝 페이지 번호 처리 -->
+				 <c:set var="endPage" value="${maxPage}" /> 
+				 <c:forEach
+					var="p" begin="${startPage+1}" end="${endPage}">
+					<!-- eq : == / ne : != -->
+					<c:if test="${p eq currentPage}">
+						<font color="red"><b>${p} &nbsp; &nbsp; &nbsp;</b></font>
+					</c:if>
+					<c:if test="${p ne currentPage}">
+						<c:url var="blistchk" value="bOracleList.do">
+							<c:param name="page" value="${p}" />
+						</c:url>
+						<a href="${blistchk}">${p} &nbsp; &nbsp; &nbsp;</a>
+					</c:if>
+				</c:forEach> 
+				<c:if test="${currentPage >= maxPage}">&nbsp; &gt;
+				</c:if>
+				<c:if test="${currentPage < maxPage}">
+					<c:url var="blistEND" value="bOracleList.do">
+						<c:param name="page" value="${currentPage+1}" />
+					</c:url>
+					<a href="${blistEND}">&nbsp; &gt;</a>
+				</c:if>
+				</td>
+        </tr>
+    </table>
+    </div>
 </body>
 <script type="text/javascript">
 	$(function() {

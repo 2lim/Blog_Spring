@@ -1,8 +1,18 @@
-package com.kh.mynewboard.board.model.vo;
+package com.kh.hllee.board.model.vo;
 
 import java.sql.Date;
 
 import org.springframework.stereotype.Component;
+
+//BOARD_NUM number(3),
+//BOARD_WRITER VARCHAR2(12) NOT NULL, 
+//BOARD_TITLE VARCHAR2(50) NOT NULL, 
+//READ_COUNT NUMBER(5，0) DEFAULT 0 NOT NULL, 
+//REGDATE DATE DEFAULT SYSDATE NOT NULL, 
+//BOARD_CONTENT VARCHAR2(4000) NOT NULL,
+//BOARD_FILE VARCHAR2(500),
+//BOARD_PWD VARCHAR2(100),
+//BOARD_TYPE number(1)
 
 @Component
 public class Board implements java.io.Serializable {
@@ -13,6 +23,7 @@ public class Board implements java.io.Serializable {
 	private String board_content;
 	private String board_file;
 	private String board_pwd;
+	private int board_type;
 	private int read_count;
 	private Date regDate;
 
@@ -25,7 +36,7 @@ public class Board implements java.io.Serializable {
 	}
 
 	public Board(String board_num, String board_writer, String board_title, String board_content, String board_file,
-			int read_count, Date regDate, String board_pwd) {
+			int read_count, Date regDate, String board_pwd, int board_type) {
 		this.board_num = board_num;
 		this.board_writer = board_writer;
 		this.board_title = board_title;
@@ -34,21 +45,23 @@ public class Board implements java.io.Serializable {
 		this.read_count = read_count;
 		this.regDate = regDate;
 		this.board_pwd = board_pwd;
+		this.board_type = board_type;
 	}
 
-	public Board(String board_writer, String board_title, String board_content, String board_file, String board_pwd) {
+	public Board(String board_writer, String board_title, String board_content, String board_file, String board_pwd, int board_type) {
 		this.board_writer = board_writer;
 		this.board_title = board_title;
 		this.board_content = board_content;
 		this.board_file = board_file;
 		this.board_pwd = board_pwd;
+		this.board_type = board_type;
 	}
 
-	@Override //toString()메소드오버라이딩 
+	@Override
 	public String toString() {
-	return "Board [board_num=" + board_num + ", board_writer=" + board_writer + ", board_title=" + board_title
-	+ ", board_content=" + board_content + ", board_file=" + board_file + ", read_count=" + read_count
-	+ ", regDate=" + regDate + "]";	
+		return "Board [board_num=" + board_num + ", board_writer=" + board_writer + ", board_title=" + board_title
+				+ ", board_content=" + board_content + ", board_file=" + board_file + ", board_pwd=" + board_pwd
+				+ ", board_type=" + board_type + ", read_count=" + read_count + ", regDate=" + regDate + "]";
 	}
 
 	public String getBoard_num() {
@@ -99,6 +112,14 @@ public class Board implements java.io.Serializable {
 		this.board_pwd = board_pwd;
 	}
 
+	public int getBoard_type() {
+		return board_type;
+	}
+
+	public void setBoard_type(int board_type) {
+		this.board_type = board_type;
+	}
+
 	public int getRead_count() {
 		return read_count;
 	}
@@ -118,5 +139,6 @@ public class Board implements java.io.Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	
 }

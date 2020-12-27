@@ -1,4 +1,4 @@
-package com.kh.mynewboard.common.service;
+package com.kh.hllee.common.service;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;

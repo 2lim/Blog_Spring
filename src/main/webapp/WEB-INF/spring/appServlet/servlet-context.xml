@@ -65,7 +65,7 @@
 	<!-- AOP를 통해 Transaction의 pointcut 설정 -->
 	<!-- xml 방ㅇ식으로 거는것 이름은 daoMethod라고 지어주고 -->
 	<aop:config proxy-target-class="true">
-		<aop:pointcut id="daoMethod" expression="execution(* com.kh.mynewboard..*Impl.*(..)))" />
+		<aop:pointcut id="daoMethod" expression="execution(* com.kh.hllee..*Impl.*(..)))" />
 		<!-- .. : 있을수도 있고 없을 수도 있고 -->
 			
 		<aop:advisor id="transactionAdvisor" pointcut-ref="daoMethod" advice-ref="txAdvice" />
@@ -92,5 +92,5 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan base-package="com.kh.mynewboard" />
+	<context:component-scan base-package="com.kh.hllee" />
 </beans:beans>

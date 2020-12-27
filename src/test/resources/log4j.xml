@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.kh.mynewboard">
+	<logger name="com.kh.hllee">
 		<level value="info" />
 	</logger>
 	

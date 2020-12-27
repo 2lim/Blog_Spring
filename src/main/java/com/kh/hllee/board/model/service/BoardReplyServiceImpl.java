@@ -1,12 +1,12 @@
-package com.kh.mynewboard.board.model.service;
+package com.kh.hllee.board.model.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.mynewboard.board.model.dao.BoardReplyDao;
-import com.kh.mynewboard.board.model.vo.BoardReply;
+import com.kh.hllee.board.model.dao.BoardReplyDao;
+import com.kh.hllee.board.model.vo.BoardReply;
 
 @Service("brService")
 public class BoardReplyServiceImpl implements BoardReplyService {

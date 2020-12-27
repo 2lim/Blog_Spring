@@ -1,4 +1,4 @@
-package com.kh.mynewboard;
+package com.kh.hllee;
 
 import java.text.DateFormat;
 import java.util.Date;

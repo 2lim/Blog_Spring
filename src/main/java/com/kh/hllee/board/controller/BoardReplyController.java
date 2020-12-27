@@ -1,4 +1,4 @@
-package com.kh.mynewboard.board.controller;
+package com.kh.hllee.board.controller;
 
 import java.io.PrintWriter;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.mynewboard.board.model.service.BoardReplyService;
-import com.kh.mynewboard.board.model.vo.BoardReply;
+import com.kh.hllee.board.model.service.BoardReplyService;
+import com.kh.hllee.board.model.vo.BoardReply;
 
 @Controller
 public class BoardReplyController {

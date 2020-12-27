@@ -7,32 +7,64 @@
 		<id property="board_num" column="board_num" />
 		<result property="board_writer" column="board_writer" />
 		<result property="board_title" column="board_title" />
-		<result property="board_content" column="board_content" />
 		<result property="board_file" column="board_file" />
-		<result property="board_pwd" column="board_pwd" />
 		<result property="read_count" column="read_count" />
+		<result property="board_content" column="board_content" />
 		<result property="regDate" column="regDate" />
+		<result property="board_type" column="board_type" />
+		<!-- <result property="board_subtitle" column="board_subtitle"/> -->
 	</resultMap>
 
 	<!-- 게시글 전체 개수 조회 -->
 	<select id="listCount" resultType="int">
-		SELECT count(*) FROM BOARD
+		SELECT count(*) FROM BLOG_BOARD
 	</select>
-	<!-- 페이지당 게시글 조회 -->
+	<!-- Java 게시글 전체 개수 조회 -->
+	<select id="JavalistCount" resultType="int">
+		SELECT count(*) FROM BLOG_BOARD where board_type = 1
+	</select>
+	<!-- Oracle 게시글 전체 개수 조회 -->
+	<select id="OraclelistCount" resultType="int">
+		SELECT count(*) FROM BLOG_BOARD where board_type = 2
+	</select>
+	<!-- Spring 게시글 전체 개수 조회 -->
+	<select id="SpringlistCount" resultType="int">
+		SELECT count(*) FROM BLOG_BOARD where board_type = 3
+	</select>
+	
+	<!-- 페이지당 전체 게시글 조회 -->
 	<select id="selectList" resultType="arraylist"
 		resultMap="resultBoard">
-		SELECT * FROM BOARD
+		SELECT * FROM BLOG_BOARD
 	</select>
+	
+	<!-- 자바 페이지 -->
+	<select id="selectJavaList" resultType="arraylist"
+		resultMap="resultBoard">
+		SELECT * FROM BLOG_BOARD where board_type = 1
+	</select>
+	<!-- 자바 페이지 -->
+	<select id="selectOracleList" resultType="arraylist"
+		resultMap="resultBoard">
+		SELECT * FROM BLOG_BOARD where board_type = 2
+	</select>
+	<!-- 자바 페이지 -->
+	<select id="selectSpringList" resultType="arraylist"
+		resultMap="resultBoard">
+		SELECT * FROM BLOG_BOARD where board_type = 3
+	</select>
+	
+	
 	<!-- 게시글 단일 조회 -->
 	<select id="selectOne" parameterType="string" resultType="Board">
 		SELECT
-		* FROM BOARD
+		* FROM BLOG_BOARD
 		WHERE BOARD_NUM = #{board_num}
 	</select>
 	<!-- 검색한 게시글 조회 -->
 	<select id="searchList" parameterType="string"
 		resultType="arraylist" resultMap="resultBoard">
-		SELECT * FROM BOARD
+		SELECT * FROM BLOG_BOARD
 		WHERE BOARD_TITLE
 		LIKE '%'|| #{keyword} ||'%'
 		OR BOARD_CONTENT LIKE '%'|| #{keyword}
@@ -42,30 +74,30 @@
 	<!-- 	int형은 resultType이 없다 -->
 	<insert id="insertBoard" parameterType="string"
 		flushCache="true" statementType="PREPARED"> 
-		INSERT INTO BOARD VALUES(
+		INSERT INTO BLOG_BOARD VALUES(
 		'BO'||TO_CHAR(SYSDATE,'RRMMDD')||LPAD(BOARD_SEQ.NEXTVAL, 2, '0'),
-		#{board_writer}, #{board_title}, 0,
+		'관리자', #{board_title}, 0,
 		SYSDATE, #{board_content},
 		#{board_file},
-		#{board_pwd})
+		#{board_type})
 	</insert>
 	<!-- 게시글 조회 수 증가 -->
 	<!-- read count는 기존에 있던 값에 + 1 하는것, 그래서 들고 들어오는 값은 board_num 하나이기때문에 parametterTtype에 string -->
 	<update id="addReadCount" parameterType="string" flushCache="true" statementType="PREPARED">
-		UPDATE BOARD SET READ_COUNT = READ_COUNT+1 WHERE BOARD_NUM = #{board_num}
+		UPDATE BLOG_BOARD SET READ_COUNT = READ_COUNT+1 WHERE BOARD_NUM = #{board_num}
 	</update>
 	<!-- 게시글 수정 -->
 	<update id="updateBoard" parameterType="Board" flushCache="true"
 		statementType="PREPARED">
-		UPDATE BOARD SET BOARD_TITLE = #{board_title},
+		UPDATE BLOG_BOARD SET BOARD_TITLE = #{board_title},
 		BOARD_CONTENT = #{board_content}, 
 		BOARD_FILE = #{board_file}
-		WHERE BOARD_NUM = #{board_num} AND BOARD_PWD = #{board_pwd}
+		WHERE BOARD_NUM = #{board_num}
 	</update>
 	<!-- 게시글 삭제 -->
 	<delete id="deleteBoard" parameterType="string"
 		flushCache="true" statementType="PREPARED">
-		DELETE FROM BOARD WHERE BOARD_NUM = #{board_num}
+		DELETE FROM BLOG_BOARD WHERE BOARD_NUM = #{board_num}
 	</delete>
 </mapper>
 
